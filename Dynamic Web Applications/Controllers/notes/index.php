@@ -10,4 +10,4 @@ $notesQuery = $statement->constructQuery('select * from notes where user_id = :i
 $notes = $notesQuery->get();
 //var_dump($notes->fetchAll());
 
-require "views/notes.view.php";
+require "views/notes/index.view.php";

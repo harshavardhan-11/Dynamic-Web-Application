@@ -15,4 +15,4 @@ $note = $notesQuery->findOrFail();
 authorize($note['user_id'] === $userId, 403);
 
 
-require "views/note.view.php";
+require "views/notes/show.view.php";
