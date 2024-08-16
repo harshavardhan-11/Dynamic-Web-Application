@@ -1,12 +1,8 @@
 <?php
 
-use Core\{Database, Validator};
+use Core\{App, Validator, Database};
 
-$config = require base_path('config.php');
-require base_path('Core/Validator.php');
-
-
-$statement = new Database($config['database'], 'root', 'root');
+$statement = App::resolve(Database::class);
 
 $user_id = 1; //hard code for now
 $note = "";

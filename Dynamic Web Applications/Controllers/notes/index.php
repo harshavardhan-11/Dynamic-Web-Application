@@ -1,9 +1,8 @@
 <?php
 
-use Core\Database;
+use Core\{App, Database};
 
-$config = require base_path('config.php');
-$statement = new Database($config['database'], 'root', 'root');
+$statement = App::resolve(Database::class);
 $id = 1;
 
 $notesQuery = $statement->constructQuery('select * from notes where user_id = :id', [":id" => $id]);
