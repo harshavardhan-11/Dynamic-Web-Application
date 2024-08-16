@@ -1,10 +1,9 @@
 <?php
 
-return [
-    '/' => "Controllers/index.php",
-    '/about' => "Controllers/about.php",
-    '/contact' => "Controllers/contact.php",
-    '/notes' => "Controllers/notes/index.php",
-    '/note' => "Controllers/notes/show.php",
-    '/notes/create' => "Controllers/notes/create.php",
-];
+$router->get('/', 'controllers/index.php');
+$router->get('/about', 'controllers/about.php');
+$router->get('/contact', 'controllers/contact.php');
+
+$router->get('/notes', 'controllers/notes/index.php');
+$router->get('/note', 'controllers/notes/show.php');
+$router->get('/notes/create', 'controllers/notes/create.php');
