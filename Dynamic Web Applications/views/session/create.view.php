@@ -11,13 +11,14 @@
                         account</h2>
                 </div>
 
-                <form class="mt-8 space-y-6" action="/registration" method="POST">
+                <form class="mt-8 space-y-6" action="/register" method="POST">
                     <div class="-space-y-px rounded-md shadow-sm">
 
                         <div>
                             <label for="name" class="sr-only">Name</label>
                             <input id="name" name="name" type="text" required
                                    class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                   value="<?= old('name') ?>"
                                    placeholder="Enter your name here...">
                         </div>
 
@@ -25,6 +26,7 @@
                             <label for="email" class="sr-only">Email address</label>
                             <input id="email" name="email" type="email" autocomplete="email" required
                                    class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                   value="<?= old('email') ?>"
                                    placeholder="Email address">
                         </div>
 

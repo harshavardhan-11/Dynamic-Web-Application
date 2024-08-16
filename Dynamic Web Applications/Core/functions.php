@@ -40,3 +40,41 @@ function view($path, $attributes = [])
 
     require base_path('views/' . $path);
 }
+
+function login($user)
+{
+
+
+    $_SESSION['user'] = [
+        'email' => $user['email'],
+        'name' => $user['name']
+    ];
+
+//    session_regenerate_id(true);
+}
+
+function logout()
+{
+    $_SESSION = [];
+    session_destroy();
+
+    $params = session_get_cookie_params();
+    setcookie('PHPSESSID', '', time() - 7200, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+
+}
+
+function redirect($path)
+{
+    header('Location: ' . $path);
+
+    exit();
+}
+
+function old($key, $default = '')
+{
+    return Core\Session::get('old')[$key] ?? $default;
+}
+
+function getFlashError($key, $default = '') {
+    return $_SESSION['_flash']['errors'][$key] ?? $default;
+}
