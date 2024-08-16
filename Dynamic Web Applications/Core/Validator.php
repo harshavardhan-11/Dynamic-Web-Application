@@ -9,7 +9,13 @@ class Validator {
 
         $value = trim($input);
 
-        return strlen($value) < $min || strlen($value) > $max;
+        return  strlen($value) < $min|| strlen($value) > $max;
 
     }
+
+    public static function email(string $value): bool
+    {
+        return filter_var($value, FILTER_VALIDATE_EMAIL);
+    }
+
 }
