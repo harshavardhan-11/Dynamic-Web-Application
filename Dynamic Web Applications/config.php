@@ -1,7 +1,5 @@
 <?php
 
-namespace Core;
-
 return [
     "database" => [
         "host" => "localhost",
