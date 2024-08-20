@@ -1,18 +1,23 @@
 <?php
 
-use Core\{App, Database};
+use Core\{App, Database, Session};
 
-$statement = App::resolve(Database::class);
+$db = App::resolve(Database::class);
 $id = $_GET['id'];
-$userId = 1;
 
-$notesQuery = $statement->constructQuery('select * from notes where id = :id', [":id" => $id]);
+$email = Session::get('user')['email'];
+
+$user = $db->constructQuery('select * from users where email = :email', [
+    'email' => $email
+])->find();
+
+$notesQuery = $db->constructQuery('select * from notes where id = :id', [":id" => $id]);
 $note = $notesQuery->findOrFail();
 
-authorize($note['user_id'] === $userId, 403);
+authorize($note['user_id'] === $user['id'], 403);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $statement->constructQuery('DELETE FROM notes WHERE id = :id;', [":id" => $id]);
+    $db->constructQuery('DELETE FROM notes WHERE id = :id;', [":id" => $id]);
 
     header("location: /notes");
 }

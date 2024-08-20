@@ -1,11 +1,15 @@
 <?php
 
-use Core\{App, Database};
+use Core\{App, Database, Session};
 
-$statement = App::resolve(Database::class);
-$id = 1;
+$db = App::resolve(Database::class);
+$email = Session::get('user')['email'];
 
-$notesQuery = $statement->constructQuery('select * from notes where user_id = :id', [":id" => $id]);
+$user = $db->constructQuery('select * from users where email = :email', [
+    'email' => $email
+])->find();
+
+$notesQuery = $db->constructQuery('select * from notes where user_id = :id', [":id" => $user['id']]);
 $notes = $notesQuery->get();
 
 view("notes/index.view.php", [

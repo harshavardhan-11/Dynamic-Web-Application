@@ -1,12 +1,15 @@
 <?php
 
-use Core\App;
-use Core\Database;
-use Core\Validator;
+use Core\{App, Session, Database, Validator};
+
 
 $db = App::resolve(Database::class);
 
-$currentUserId = 1;
+$email = Session::get('user')['email'];
+
+$user = $db->constructQuery('select * from users where email = :email', [
+    'email' => $email
+])->find();
 
 // find the corresponding note
 $note = $db->constructQuery('select * from notes where id = :id', [
@@ -14,7 +17,7 @@ $note = $db->constructQuery('select * from notes where id = :id', [
 ])->findOrFail();
 
 // authorize that the current user can edit the note
-authorize($note['user_id'] === $currentUserId, 403);
+authorize($note['user_id'] === $user['id'], 403);
 
 // validate the form
 $errors = [];

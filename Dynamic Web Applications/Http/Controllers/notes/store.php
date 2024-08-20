@@ -1,10 +1,14 @@
 <?php
 
-use Core\{App, Validator, Database};
+use Core\{App, Validator, Database, Session};
 
-$statement = App::resolve(Database::class);
+$db = App::resolve(Database::class);
 
-$user_id = 1; //hard code for now
+$email = Session::get('user')['email'];
+
+$user = $db->constructQuery('select * from users where email = :email', [
+    'email' => $email
+])->find();
 $note = "";
 $error = [];
 
@@ -23,7 +27,7 @@ if(!empty($error)) {
     ]);
 }
 
-$statement->constructQuery('INSERT INTO notes(body, user_id) VALUES(:note, :user_id)', ['note' => $note, "user_id" => $user_id]);
+$db->constructQuery('INSERT INTO notes(body, user_id) VALUES(:note, :user_id)', ['note' => $note, "user_id" => $user['id']]);
 
 header('location: /notes');
 die();
