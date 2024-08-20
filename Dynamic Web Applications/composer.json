@@ -1,0 +1,10 @@
+{
+    "name": "harsha/dynamicwebapplication",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
